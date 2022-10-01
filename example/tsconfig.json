@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "expo-google-places-autocomplete": ["../src/ExpoGooglePlacesAutocomplete"],
+      "expo-google-places-autocomplete/*": ["../src/*"]
+    }
+  }
+}
