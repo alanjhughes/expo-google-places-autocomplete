@@ -1,0 +1,11 @@
+{
+  "platforms": ["ios", "android"],
+  "ios": {
+    "modules": ["ExpoGooglePlacesAutocompleteModule"]
+  },
+  "android": {
+    "modules": [
+      "expo.community.modules.googleplacesautocomplete.ExpoGooglePlacesAutocompleteModule"
+    ]
+  }
+}
