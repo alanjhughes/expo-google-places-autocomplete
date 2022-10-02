@@ -17,7 +17,9 @@
     "react-native",
     "expo",
     "expo-google-places-autocomplete",
-    "ExpoGooglePlacesAutocomplete"
+    "ExpoGooglePlacesAutocomplete",
+    "google-places",
+    "autocomplete"
   ],
   "repository": "https://github.com/alanjhughes/expo-google-places-autocomplete",
   "bugs": {

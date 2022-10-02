@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View, Text, Platform } from "react-native";
 import {
   GooglePlacesAutocomplete,
