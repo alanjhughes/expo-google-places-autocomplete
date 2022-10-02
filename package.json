@@ -9,10 +9,14 @@
     "clean": "expo-module clean",
     "lint": "expo-module lint",
     "test": "expo-module test",
-    "prepare": "expo-module prepare",
+    "copy-files": "copyfiles -u 1 src/assets/* build/",
+    "prepare": "expo-module prepare && yarn copy-files",
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module"
   },
+  "files": [
+    "assets"
+  ],
   "keywords": [
     "react-native",
     "expo",
@@ -31,6 +35,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/react-native": "^0.70.4",
+    "copyfiles": "^2.4.1",
     "expo-module-scripts": "^2.1.1",
     "expo-modules-core": "^0.11.5"
   },
