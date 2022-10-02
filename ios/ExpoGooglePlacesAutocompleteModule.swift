@@ -1,16 +1,15 @@
 import ExpoModulesCore
 import GooglePlaces
 
-struct Context {
+struct PlacesAutocompleteContext {
     let promise: Promise
     let placesDelegate: PlacesDelegate
 }
 
 public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
-    private var currentContext: Context? = nil
-    let token = GMSAutocompleteSessionToken.init()
-    var fetcher: GMSAutocompleteFetcher!
-    var callback: RCTResponseSenderBlock? = nil
+    private var currentContext: PlacesAutocompleteContext? = nil
+    private let token = GMSAutocompleteSessionToken.init()
+    private var fetcher: GMSAutocompleteFetcher!
     private let filter = GMSAutocompleteFilter()
     
     public func definition() -> ModuleDefinition {
@@ -21,12 +20,11 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
             self.fetcher.provide(self.token)
         }
         
-        AsyncFunction("initPlaces") { (apiKey: String) in
-            print("init places sdk")
+        Function("initPlaces") { (apiKey: String) in
             GMSPlacesClient.provideAPIKey(apiKey)
         }
         
-        AsyncFunction("findPlaces") { (query: String, params: PlacesParams, promise: Promise) in
+        AsyncFunction("findPlaces") { (query: String, params: PlacesParams?, promise: Promise) in
             self.findPlaces(from: query, params: params, promise: promise)
         }
         
@@ -36,18 +34,13 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
     }
     
     private func findPlaces(from query: String, params: PlacesParams?, promise: Promise) {
-        
         let placesDelegate = PlacesDelegate(resultHandler: self)
         fetcher.delegate = placesDelegate
         
-        self.currentContext = Context(promise: promise, placesDelegate: placesDelegate)
+        self.currentContext = PlacesAutocompleteContext(promise: promise, placesDelegate: placesDelegate)
         
-        if let params {
-            filter.countries = params.countries
-        } else {
-            filter.countries = []
-        }
-        
+        filter.countries = params?.countries ?? []
+
         DispatchQueue.main.async { [weak self] in
             self?.fetcher.sourceTextHasChanged(query)
         }
@@ -61,6 +54,7 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
                                                   UInt(GMSPlaceField.formattedAddress.rawValue) |
                                                   UInt(GMSPlaceField.addressComponents.rawValue)
         )
+        
         DispatchQueue.main.async {
             GMSPlacesClient.shared().fetchPlace(fromPlaceID: id, placeFields: fields, sessionToken: nil) { place, error in
                 if let error = error {
@@ -79,7 +73,7 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
     func didAutocomplete(with predictions: [GMSAutocompletePrediction]) {
         guard let promise = self.currentContext?.promise
         else {
-            NSLog("Picking operation context has been lost.")
+            NSLog("PlacesContext has been lost.")
             return
         }
         
@@ -87,13 +81,13 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
         
         let results = Mappers.mapFromPredictions(predictions: predictions)
         promise.resolve([
-            "cancelled": false,
-            "items": results
+            "places": results
         ])
     }
     
     func didFailAutocompleteWithError(_ error: Error) {
-        self.currentContext?.promise.resolve(["error": error.localizedDescription])
+        self.currentContext?.promise.resolve(["places": []])
+        self.currentContext = nil
     }
 }
 

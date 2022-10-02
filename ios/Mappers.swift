@@ -2,12 +2,18 @@ import GooglePlaces
 
 class Mappers {
     
-    class func mapFromPlace(place: GMSPlace) -> [String: Any] {
+    class func mapFromPlace(place: GMSPlace) -> [String: Any?] {
         [
-            "name": place.name ?? NSNull(),
-            "placeId": place.placeID ?? NSNull(),
+            "name": place.name,
+            "placeId": place.placeID,
             "coordinate": Mappers.mapFromCoordinate(coordinate: place.coordinate),
-            "formattedAddress": place.formattedAddress ?? NSNull()
+            "formattedAddress": place.formattedAddress,
+            "addressComponents": place.addressComponents.map({ comp in
+                comp.map { c in
+                    c.name
+                }
+            }) ?? [],
+    
         ]
     }
     
@@ -26,7 +32,8 @@ class Mappers {
             "fullText": prediction.attributedFullText.string,
             "placeId": prediction.placeID,
             "distance": prediction.distanceMeters ?? NSNull(),
-            "types": prediction.types
+            "types": prediction.types,
+            "description": prediction.description
         ]
         
     }

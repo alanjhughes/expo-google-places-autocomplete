@@ -41,9 +41,14 @@ export default function ExpoGooglePlacesAutocompleteView({
 
   const onChangeText = React.useCallback(
     async (text: string) => {
-      let result = await PlacesAutocomplete.findPlaces(text, requestConfig);
-      setResults(result.items);
-      setInputValue(text);
+      try {
+        let result = await PlacesAutocomplete.findPlaces(text, requestConfig);
+        setResults(result.places);
+        setInputValue(text);
+      } catch (e) {
+        const error = e as PlacesError;
+        onSearchError?.(error);
+      }
     },
     [requestConfig],
   );

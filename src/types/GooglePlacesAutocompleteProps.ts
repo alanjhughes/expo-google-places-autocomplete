@@ -1,7 +1,7 @@
-import type { TextInput, ViewProps, ViewStyle } from 'react-native';
-import type { PlacesError } from './Error';
-import type { PlaceDetails } from './PlaceDetails';
-import type { RequestConfig } from './RequestConfig';
+import type { TextInput, ViewProps, ViewStyle } from "react-native";
+import type { PlacesError } from "./Error";
+import type { PlaceDetails } from "./PlaceDetails";
+import type { RequestConfig } from "./RequestConfig";
 
 export interface GooglePlacesAutocompleteProps extends ViewProps {
   /**

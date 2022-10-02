@@ -7,7 +7,7 @@ interface ExpoGooglePlacesAutocompleteModule {
   findPlaces: (
     query: string,
     config?: RequestConfig,
-  ) => Promise<{ cancelled: boolean; items: Place[] }>;
+  ) => Promise<{ places: Place[] }>;
   placeDetails: (placeId: String) => Promise<PlaceDetails>;
 }
 

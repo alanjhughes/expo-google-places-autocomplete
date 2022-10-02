@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Platform } from "react-native";
 
-import { GooglePlacesAutocomplete } from "expo-google-places-autocomplete";
 import {
+  GooglePlacesAutocomplete,
   PlacesError,
   PlaceDetails,
-} from "expo-google-places-autocomplete/types";
+} from "expo-google-places-autocomplete";
+
 import { API_KEY } from "@env";
 
 export default function App() {
@@ -28,7 +29,7 @@ export default function App() {
           onPlaceSelected={onPlaceSelected}
           onSearchError={onSearchError}
         />
-        <Text>{JSON.stringify(placeDetails, null, 2)}</Text>
+        {placeDetails && <Text>{JSON.stringify(placeDetails, null, 2)}</Text>}
       </View>
     </View>
   );

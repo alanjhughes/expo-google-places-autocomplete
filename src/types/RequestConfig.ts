@@ -1,5 +1,4 @@
 import type { CountryCode } from "./CountryCode";
-import type { TypeFilter } from "./TypeFilter";
 
 /**
  * Filter your request results
