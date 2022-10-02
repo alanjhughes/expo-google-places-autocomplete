@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Platform } from "react-native";
-
 import {
   GooglePlacesAutocomplete,
   PlacesError,
   PlaceDetails,
 } from "expo-google-places-autocomplete";
-
 import { API_KEY } from "@env";
 
 export default function App() {
