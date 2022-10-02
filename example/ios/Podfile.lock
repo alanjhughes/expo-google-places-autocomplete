@@ -11,9 +11,9 @@ PODS:
     - ExpoModulesCore
   - Expo (46.0.13):
     - ExpoModulesCore
-  - ExpoGooglePlacesAutocomplete (0.1.0):
+  - ExpoGooglePlacesAutocomplete (0.1.2):
     - ExpoModulesCore
-    - GooglePlaces (= 7.1.0)
+    - GooglePlaces (= 6.2.0)
   - ExpoKeepAwake (10.2.0):
     - ExpoModulesCore
   - ExpoModulesCore (0.11.5):
@@ -32,7 +32,7 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.69.6)
   - fmt (6.2.1)
   - glog (0.3.5)
-  - GooglePlaces (7.1.0)
+  - GooglePlaces (6.2.0)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
     - DoubleConversion
@@ -451,7 +451,7 @@ SPEC CHECKSUMS:
   EXFileSystem: 927e0a8885aa9c49e50fc38eaba2c2389f2f1019
   EXFont: 06df627203afcb8a3b3152ec06eb2f11f46f0cff
   Expo: 39582e41ae9e0aa9ed016d3918da87ee61e87525
-  ExpoGooglePlacesAutocomplete: d16cbb2e8dd6945295c23d4aee3b13802a834709
+  ExpoGooglePlacesAutocomplete: a0b27daab1699833bcd28cdfadaa987f1a733669
   ExpoKeepAwake: 0e8f18142e71bbf2c7f6aa66ebed249ba1420320
   ExpoModulesCore: 5a973701f4400d70254bc836305228731c829010
   EXSplashScreen: 799bece80089219b2c989c1082d70f3b00995cda
@@ -459,7 +459,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 957de82f66e31f2f14bbec34e37242282fdd26de
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
-  GooglePlaces: 187946335ec3dc624de71c0a9ddcc712f19b0ee1
+  GooglePlaces: 53ce075bac2ea015afbd6577f47d186426a3a388
   RCT-Folly: b9d9fe1fc70114b751c076104e52f3b1b5e5a95a
   RCTRequired: c8c080849a3670601d5c7056023a2176067a69d8
   RCTTypeSafety: 710aef40f5ae246bc5fff7e873855b17ed11c180

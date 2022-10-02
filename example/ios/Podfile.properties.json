@@ -1,4 +1,3 @@
 {
-  "expo.jsEngine": "jsc",
-  "ios.deploymentTarget": "13.0"
+  "expo.jsEngine": "jsc"
 }
