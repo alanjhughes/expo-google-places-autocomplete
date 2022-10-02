@@ -49,8 +49,9 @@ export default function ExpoGooglePlacesAutocompleteView({
   );
 
   return (
-    <ScrollView {...props}>
+    <ScrollView>
       <SearchInput
+        {...props}
         ref={inputRef}
         inputValue={inputValue}
         onChangeText={onChangeText}

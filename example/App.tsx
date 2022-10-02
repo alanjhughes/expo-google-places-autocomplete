@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Platform } from "react-native";
 
 import { GooglePlacesAutocomplete } from "expo-google-places-autocomplete";
@@ -9,12 +9,13 @@ import {
 import { API_KEY } from "@env";
 
 export default function App() {
+  const [placeDetails, setPlaceDetails] = useState<PlaceDetails | null>(null);
   const onSearchError = React.useCallback((error: PlacesError) => {
     console.log(error);
   }, []);
 
   const onPlaceSelected = React.useCallback((place: PlaceDetails) => {
-    console.log(place);
+    setPlaceDetails(place);
   }, []);
 
   return (
@@ -27,6 +28,7 @@ export default function App() {
           onPlaceSelected={onPlaceSelected}
           onSearchError={onSearchError}
         />
+        <Text>{JSON.stringify(placeDetails, null, 2)}</Text>
       </View>
     </View>
   );

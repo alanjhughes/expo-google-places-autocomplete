@@ -1,8 +1,8 @@
-import { TextInput, ViewStyle } from "react-native";
+import { TextInput, ViewStyle, TextInputProps } from "react-native";
 import { PlaceDetails, PlacesError } from "./types";
 import { RequestConfig } from "./types/RequestConfig";
 
-export type ExpoGooglePlacesAutocompleteViewProps = {
+export interface ExpoGooglePlacesAutocompleteViewProps extends TextInputProps {
   /**
    * Your Google Place Api Key
    */
@@ -38,4 +38,4 @@ export type ExpoGooglePlacesAutocompleteViewProps = {
    * The style of the result items
    */
   resultItemStyle?: ViewStyle;
-} & TextInputProps;
+}

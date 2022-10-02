@@ -70,10 +70,7 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
                 
                 if let place = place {
                     let result = Mappers.mapFromPlace(place: place)
-                    promise.resolve([
-                        "cancelled": false,
-                        "items": result
-                    ])
+                    promise.resolve(result)
                 }
             }
         }
