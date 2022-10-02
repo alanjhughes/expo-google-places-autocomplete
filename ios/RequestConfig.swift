@@ -8,7 +8,6 @@
 import ExpoModulesCore
 import GooglePlaces
 
-internal struct PlacesParams: Record {
+internal struct RequestConfig: Record {
     @Field var countries: [String]
-    @Field var filterType: String?
 }

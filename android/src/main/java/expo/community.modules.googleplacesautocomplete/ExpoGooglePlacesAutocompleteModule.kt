@@ -1,53 +1,83 @@
 package expo.community.modules.googleplacesautocomplete
 
+import android.os.Bundle
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
+import com.google.android.libraries.places.api.net.PlacesClient
+import expo.modules.kotlin.Promise
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
 class ExpoGooglePlacesAutocompleteModule : Module() {
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
-  override fun definition() = ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
-    // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('ExpoGooglePlacesAutocomplete')` in JavaScript.
-    Name("ExpoGooglePlacesAutocomplete")
+    private lateinit var placesClient: PlacesClient
+    private val token = AutocompleteSessionToken.newInstance()
+    private val request =
+        FindAutocompletePredictionsRequest.builder()
+            .setSessionToken(token)
 
-    // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
-    Constants(
-      "PI" to Math.PI
-    )
+    override fun definition() = ModuleDefinition {
+        Name("ExpoGooglePlacesAutocomplete")
 
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
+        Function("initPlaces") { apiKey: String ->
+            Places.initialize(appContext.reactContext!!, apiKey)
+            placesClient = Places.createClient(appContext.reactContext!!)
+        }
 
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      "Hello world! 👋"
+        AsyncFunction("findPlaces") { query: String, config: RequestConfig?, promise: Promise ->
+            findPlaces(query, config, promise)
+        }
+
+        AsyncFunction("placeDetails") { placeId: String, promise: Promise ->
+            placeDetails(placeId, promise)
+        }
     }
 
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { value: String ->
-      // Send an event to JavaScript.
-      sendEvent("onChange", mapOf(
-        "value" to value
-      ))
+    private fun findPlaces(query: String, config: RequestConfig?, promise: Promise) {
+        request.query = query
+        request.countries = config?.countries ?: emptyList()
+
+        placesClient.findAutocompletePredictions(request.build())
+            .addOnSuccessListener { response ->
+                val bundle = Bundle()
+                val places =
+                    response.autocompletePredictions.map { mapFromPrediction(it) }.toTypedArray()
+                bundle.putParcelableArray("places", places)
+                promise.resolve(bundle)
+            }
+            .addOnFailureListener {
+                promise.reject(
+                    code = "Failed to fetch places",
+                    message = it.message,
+                    cause = it.cause
+                )
+            }
     }
 
-    // Enables the module to be used as a view manager. The view manager definition is built from
-    // the definition components used in the closure passed to viewManager.
-    // Definition components that are accepted as part of the view manager definition: `View`, `Prop`.
-    ViewManager {
-      // Defines the factory creating a native view when the module is used as a view.
-      View { context -> 
-        ExpoGooglePlacesAutocompleteView(context) 
-      }
+    private fun placeDetails(placeId: String, promise: Promise) {
+        val placeFields = listOf(
+            Place.Field.ID,
+            Place.Field.NAME,
+            Place.Field.LAT_LNG,
+            Place.Field.ADDRESS,
+            Place.Field.ADDRESS_COMPONENTS
+        )
 
-      // Defines a setter for the `name` prop.
-      Prop("name") { view: ExpoGooglePlacesAutocompleteView, prop: String ->
-        println(prop)
-      }
+        val request = FetchPlaceRequest.newInstance(placeId, placeFields)
+
+        placesClient.fetchPlace(request)
+            .addOnSuccessListener { response ->
+                val place = mapFromPlace(response.place)
+                promise.resolve(place)
+            }
+            .addOnFailureListener {
+                promise.reject(
+                    code = "Failed to fetch place details",
+                    message = it.message,
+                    cause = it.cause
+                )
+            }
     }
-  }
 }

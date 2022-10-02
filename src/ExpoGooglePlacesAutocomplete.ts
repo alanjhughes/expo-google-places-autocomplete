@@ -1,6 +1,6 @@
 import GooglePlacesAutocomplete from "./ExpoGooglePlacesAutocompleteView";
-import { ExpoGooglePlacesAutocompleteViewProps } from "./ExpoGooglePlacesAutocomplete.types";
+import { GooglePlacesAutocompleteProps } from "./types/GooglePlacesAutocompleteProps";
 
 export * from "./types";
 
-export { GooglePlacesAutocomplete, ExpoGooglePlacesAutocompleteViewProps };
+export { GooglePlacesAutocomplete, GooglePlacesAutocompleteProps };

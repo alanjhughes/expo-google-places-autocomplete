@@ -24,8 +24,8 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
             GMSPlacesClient.provideAPIKey(apiKey)
         }
         
-        AsyncFunction("findPlaces") { (query: String, params: PlacesParams?, promise: Promise) in
-            self.findPlaces(from: query, params: params, promise: promise)
+        AsyncFunction("findPlaces") { (query: String, config: RequestConfig?, promise: Promise) in
+            self.findPlaces(from: query, config: config, promise: promise)
         }
         
         AsyncFunction("placeDetails") { (id: String, promise: Promise) in
@@ -33,13 +33,13 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
         }
     }
     
-    private func findPlaces(from query: String, params: PlacesParams?, promise: Promise) {
+    private func findPlaces(from query: String, config: RequestConfig?, promise: Promise) {
         let placesDelegate = PlacesDelegate(resultHandler: self)
         fetcher.delegate = placesDelegate
         
         self.currentContext = PlacesAutocompleteContext(promise: promise, placesDelegate: placesDelegate)
         
-        filter.countries = params?.countries ?? []
+        filter.countries = config?.countries ?? []
 
         DispatchQueue.main.async { [weak self] in
             self?.fetcher.sourceTextHasChanged(query)

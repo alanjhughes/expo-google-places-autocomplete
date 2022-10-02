@@ -1,10 +1,9 @@
 import * as React from "react";
 import { ScrollView, View } from "react-native";
 import { SearchInput, ResultItem, ListFooter } from "./components";
-
-import { ExpoGooglePlacesAutocompleteViewProps } from "./ExpoGooglePlacesAutocomplete.types";
 import PlacesAutocomplete from "./ExpoGooglePlacesAutocompleteModule";
 import { Place, PlacesError } from "./types";
+import { GooglePlacesAutocompleteProps } from "./types/GooglePlacesAutocompleteProps";
 
 export default function ExpoGooglePlacesAutocompleteView({
   apiKey,
@@ -16,7 +15,7 @@ export default function ExpoGooglePlacesAutocompleteView({
   resultsContainerStyle,
   resultItemStyle,
   ...props
-}: ExpoGooglePlacesAutocompleteViewProps) {
+}: GooglePlacesAutocompleteProps) {
   const [inputValue, setInputValue] = React.useState("");
   const [results, setResults] = React.useState<Place[]>([]);
 
@@ -56,12 +55,12 @@ export default function ExpoGooglePlacesAutocompleteView({
   return (
     <ScrollView>
       <SearchInput
-        {...props}
         ref={inputRef}
         inputValue={inputValue}
         onChangeText={onChangeText}
-        placeholder={placeholder || "Search for your address"}
+        placeholder={placeholder || "Search for your address..."}
         clearButtonMode="while-editing"
+        {...props}
       />
       {results.length > 0 ? (
         <View style={resultsContainerStyle}>
@@ -70,7 +69,7 @@ export default function ExpoGooglePlacesAutocompleteView({
               key={place.placeId}
               place={place}
               style={resultItemStyle}
-              onSelectPlace={onSelectPlace}
+              onSelectPlace={() => onSelectPlace(place.placeId, place.fullText)}
             />
           ))}
           <ListFooter />

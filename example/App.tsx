@@ -10,13 +10,12 @@ import {
 import { API_KEY } from "@env";
 
 export default function App() {
-  const [placeDetails, setPlaceDetails] = useState<PlaceDetails | null>(null);
   const onSearchError = React.useCallback((error: PlacesError) => {
     console.log(error);
   }, []);
 
   const onPlaceSelected = React.useCallback((place: PlaceDetails) => {
-    setPlaceDetails(place);
+    console.log(place);
   }, []);
 
   return (
@@ -29,7 +28,6 @@ export default function App() {
           onPlaceSelected={onPlaceSelected}
           onSearchError={onSearchError}
         />
-        {placeDetails && <Text>{JSON.stringify(placeDetails, null, 2)}</Text>}
       </View>
     </View>
   );
