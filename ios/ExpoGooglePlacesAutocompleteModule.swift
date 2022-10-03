@@ -8,8 +8,8 @@ struct PlacesAutocompleteContext {
 
 public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
     private var currentContext: PlacesAutocompleteContext? = nil
-    private let token = GMSAutocompleteSessionToken.init()
     private var fetcher: GMSAutocompleteFetcher!
+    private let token = GMSAutocompleteSessionToken.init()
     private let filter = GMSAutocompleteFilter()
     
     public func definition() -> ModuleDefinition {

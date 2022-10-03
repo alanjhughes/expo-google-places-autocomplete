@@ -1,5 +1,6 @@
 package expo.community.modules.googleplacesautocomplete
 
+import android.content.Context
 import android.os.Bundle
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
@@ -8,6 +9,7 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import expo.modules.kotlin.Promise
+import expo.modules.kotlin.functions.Coroutine
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
@@ -22,8 +24,8 @@ class ExpoGooglePlacesAutocompleteModule : Module() {
         Name("ExpoGooglePlacesAutocomplete")
 
         Function("initPlaces") { apiKey: String ->
-            Places.initialize(appContext.reactContext!!, apiKey)
-            placesClient = Places.createClient(appContext.reactContext!!)
+            Places.initialize(context, apiKey)
+            placesClient = Places.createClient(context)
         }
 
         AsyncFunction("findPlaces") { query: String, config: RequestConfig?, promise: Promise ->
@@ -34,6 +36,9 @@ class ExpoGooglePlacesAutocompleteModule : Module() {
             placeDetails(placeId, promise)
         }
     }
+
+    val context: Context
+        get() = requireNotNull(appContext.reactContext) { "React Application Context is null" }
 
     private fun findPlaces(query: String, config: RequestConfig?, promise: Promise) {
         request.query = query
