@@ -26,11 +26,11 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
         
         AsyncFunction("findPlaces") { (query: String, config: RequestConfig?, promise: Promise) in
             self.findPlaces(from: query, config: config, promise: promise)
-        }
+        }.runOnQueue(.main)
         
         AsyncFunction("placeDetails") { (id: String, promise: Promise) in
             self.placeDetails(id: id, promise: promise)
-        }
+        }.runOnQueue(.main)
     }
     
     private func findPlaces(from query: String, config: RequestConfig?, promise: Promise) {
@@ -40,11 +40,8 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
         self.currentContext = PlacesAutocompleteContext(promise: promise, placesDelegate: placesDelegate)
         
         filter.countries = config?.countries ?? []
-
-        DispatchQueue.main.async { [weak self] in
-            self?.fetcher.sourceTextHasChanged(query)
-        }
         
+        self.fetcher.sourceTextHasChanged(query)
     }
     
     private func placeDetails(id: String, promise: Promise) {
@@ -55,19 +52,19 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
                                                   UInt(GMSPlaceField.addressComponents.rawValue)
         )
         
-        DispatchQueue.main.async {
-            GMSPlacesClient.shared().fetchPlace(fromPlaceID: id, placeFields: fields, sessionToken: nil) { place, error in
-                if let error = error {
-                    promise.reject(error)
-                    return
-                }
-                
-                if let place = place {
-                    let result = Mappers.mapFromPlace(place: place)
-                    promise.resolve(result)
-                }
+        
+        GMSPlacesClient.shared().fetchPlace(fromPlaceID: id, placeFields: fields, sessionToken: nil) { place, error in
+            if let error = error {
+                promise.reject(error)
+                return
+            }
+            
+            if let place = place {
+                let result = Mappers.mapFromPlace(place: place)
+                promise.resolve(result)
             }
         }
+        
     }
     
     func didAutocomplete(with predictions: [GMSAutocompletePrediction]) {
