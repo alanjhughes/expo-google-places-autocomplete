@@ -2,25 +2,23 @@
 
 Google Places Autocomplete for React Native
 
-# Installation in managed Expo projects
+# Installation
 
-For [managed](https://docs.expo.dev/versions/latest/introduction/managed-vs-bare/) Expo projects, please follow the installation instructions in the [API documentation for the latest stable release](#api-documentation). If you follow the link and there is no documentation available then this library is not yet usable within managed projects &mdash; it is likely to be included in an upcoming Expo SDK release.
-
-# Installation in bare React Native projects
+```sh
+npx expo install expo-google-places-autocomplete
+```
 
 For bare React Native projects, you must ensure that you have [installed and configured the `expo` package](https://docs.expo.dev/bare/installing-expo-modules/) before continuing.
 
-### Add the package to your npm dependencies
+## Configuration for iOS 🍏
 
-```
-npm install expo-google-places-autocomplete
-```
-
-### Configure for iOS
+> This is only required for usage in bare React Native apps.
 
 Run `npx pod-install` after installing the npm package.
 
-### Configure for Android
+## Configuration for Android 🤖
+
+No further steps are needed on Android
 
 ## Usage
 
