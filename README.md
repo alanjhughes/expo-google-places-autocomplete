@@ -25,11 +25,32 @@ npm install expo-google-places-autocomplete
 
 Run `npx pod-install` after installing the npm package.
 
-
 ### Configure for Android
 
+## Usage
 
+```js
+import { GooglePlacesAutocomplete } from "expo-google-places-autocomplete";
+
+// ...
+const onSearchError = React.useCallback((error: PlacesError) => {
+  console.log(error);
+}, []);
+
+const onPlaceSelected = React.useCallback((place: PlaceDetails) => {
+  console.log(place);
+}, []);
+
+<View>
+  <GooglePlacesAutocomplete
+    apiKey={API_KEY}
+    requestConfig={{ countries: ["IE"] }}
+    onPlaceSelected={onPlaceSelected}
+    onSearchError={onSearchError}
+  />
+</View>;
+```
 
 # Contributing
 
-Contributions are very welcome! Please refer to guidelines described in the [contributing guide]( https://github.com/expo/expo#contributing).
+Contributions are very welcome! Please refer to guidelines described in the [contributing guide](https://github.com/expo/expo#contributing).
