@@ -45,6 +45,5 @@ const styles = StyleSheet.create({
   },
   containerStyle: {
     borderRadius: 5,
-    backgroundColor: "white",
   },
 });

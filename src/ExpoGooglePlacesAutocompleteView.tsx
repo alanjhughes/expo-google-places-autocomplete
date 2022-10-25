@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { SearchInput, ResultItem, ListFooter } from "./components";
 import PlacesAutocomplete from "./ExpoGooglePlacesAutocompleteModule";
 import { Place, PlacesError } from "./types";
@@ -56,7 +56,7 @@ export default function ExpoGooglePlacesAutocompleteView({
   );
 
   return (
-    <View style={containerStyle}>
+    <View style={[styles.container, containerStyle]}>
       <SearchInput
         ref={inputRef}
         inputValue={inputValue}
@@ -82,3 +82,9 @@ export default function ExpoGooglePlacesAutocompleteView({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+  },
+});
