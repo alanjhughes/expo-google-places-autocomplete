@@ -2,6 +2,10 @@
 
 Google Places Autocomplete for React Native
 
+## Preview
+
+<img src="screenshots/screen.png" alt="drawing" width="200"/>
+
 # Installation
 
 ```sh
@@ -37,13 +41,24 @@ const onPlaceSelected = React.useCallback((place: PlaceDetails) => {
 <View>
   <GooglePlacesAutocomplete
     apiKey={API_KEY}
-    requestConfig={{ countries: ["IE"] }}
+    requestConfig={{ countries: ["US"] }}
     onPlaceSelected={onPlaceSelected}
     onSearchError={onSearchError}
   />
 </View>;
 ```
 
+## Styling
+
+| key                   | type      |
+| --------------------- | --------- |
+| containerStyle        | ViewStyle |
+| searchInputStyle      | ViewStyle |
+| inputContainerStyle   | ViewStyle |
+| resultsContainerStyle | ViewStyle |
+| resultItemStyle       | ViewStyle |
+| listFooterStyle       | ViewStyle |
+
 # Contributing
 
-Contributions are very welcome! Please refer to guidelines described in the [contributing guide](https://github.com/expo/expo#contributing).
+Contributions are very welcome!

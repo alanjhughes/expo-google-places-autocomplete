@@ -26,7 +26,6 @@ export function ResultItem({ place, onSelectPlace, style }: ResultItemProps) {
 
 const defaultStyles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
     flexDirection: "row",
     padding: 10,
   },

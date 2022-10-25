@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import { SearchInput, ResultItem, ListFooter } from "./components";
 import PlacesAutocomplete from "./ExpoGooglePlacesAutocompleteModule";
 import { Place, PlacesError } from "./types";
@@ -12,9 +12,12 @@ export default function ExpoGooglePlacesAutocompleteView({
   onPlaceSelected,
   onSearchError,
   inputRef,
+  containerStyle,
+  searchInputStyle,
+  inputContainerStyle,
   resultsContainerStyle,
   resultItemStyle,
-  ...props
+  listFooterStyle,
 }: GooglePlacesAutocompleteProps) {
   const [inputValue, setInputValue] = React.useState("");
   const [results, setResults] = React.useState<Place[]>([]);
@@ -53,14 +56,15 @@ export default function ExpoGooglePlacesAutocompleteView({
   );
 
   return (
-    <ScrollView>
+    <View style={containerStyle}>
       <SearchInput
         ref={inputRef}
         inputValue={inputValue}
+        style={searchInputStyle}
+        inputContainerStyle={inputContainerStyle}
         onChangeText={onChangeText}
         placeholder={placeholder || "Search for your address..."}
         clearButtonMode="while-editing"
-        {...props}
       />
       {results.length > 0 ? (
         <View style={resultsContainerStyle}>
@@ -72,9 +76,9 @@ export default function ExpoGooglePlacesAutocompleteView({
               onSelectPlace={() => onSelectPlace(place.placeId, place.fullText)}
             />
           ))}
-          <ListFooter />
+          <ListFooter style={listFooterStyle} />
         </View>
       ) : null}
-    </ScrollView>
+    </View>
   );
 }

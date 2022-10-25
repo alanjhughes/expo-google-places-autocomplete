@@ -36,12 +36,32 @@ export interface GooglePlacesAutocompleteProps extends ViewProps {
   onSearchError?: (error: PlacesError) => void;
 
   /**
-   * The container of the results list
+   * The main container of the component
+   */
+  containerStyle?: ViewStyle;
+
+  /**
+   * The style of the text input
+   */
+  searchInputStyle?: ViewStyle;
+
+  /**
+   * The style of the container of the  text input
+   */
+  inputContainerStyle?: ViewStyle;
+
+  /**
+   * The container of the list of results
    */
   resultsContainerStyle?: ViewStyle;
 
   /**
-   * The style of the result items
+   * The style of individual result items
    */
   resultItemStyle?: ViewStyle;
+
+  /**
+   * The style of the list footer
+   */
+  listFooterStyle?: ViewStyle;
 }

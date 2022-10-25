@@ -23,6 +23,7 @@ export default function App() {
         <GooglePlacesAutocomplete
           apiKey={API_KEY}
           requestConfig={{ countries: ["IE"] }}
+          containerStyle={styles.containerStyle}
           onPlaceSelected={onPlaceSelected}
           onSearchError={onSearchError}
         />
@@ -35,10 +36,15 @@ const styles = StyleSheet.create({
   screen: {
     height: "100%",
     backgroundColor: "rgba(211, 211, 211, 0.3)",
+    padding: 10,
   },
   title: {
     textAlign: "center",
     fontSize: 18,
     marginVertical: 10,
+  },
+  containerStyle: {
+    borderRadius: 5,
+    backgroundColor: "white",
   },
 });
