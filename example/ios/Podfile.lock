@@ -11,7 +11,7 @@ PODS:
     - ExpoModulesCore
   - Expo (46.0.13):
     - ExpoModulesCore
-  - ExpoGooglePlacesAutocomplete (0.1.3):
+  - ExpoGooglePlacesAutocomplete (0.1.8):
     - ExpoModulesCore
     - GooglePlaces (= 6.2.0)
   - ExpoKeepAwake (10.2.0):
@@ -451,7 +451,7 @@ SPEC CHECKSUMS:
   EXFileSystem: 927e0a8885aa9c49e50fc38eaba2c2389f2f1019
   EXFont: 06df627203afcb8a3b3152ec06eb2f11f46f0cff
   Expo: 39582e41ae9e0aa9ed016d3918da87ee61e87525
-  ExpoGooglePlacesAutocomplete: b9ffc4c96610b57dfb5196732a1ffc672cf3ee85
+  ExpoGooglePlacesAutocomplete: c20e0e006267d5040e5d0d55cd2dbe6eb6eb3524
   ExpoKeepAwake: 0e8f18142e71bbf2c7f6aa66ebed249ba1420320
   ExpoModulesCore: 5a973701f4400d70254bc836305228731c829010
   EXSplashScreen: 799bece80089219b2c989c1082d70f3b00995cda

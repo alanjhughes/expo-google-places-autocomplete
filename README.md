@@ -1,6 +1,6 @@
 # expo-google-places-autocomplete
 
-Google Places Autocomplete for React Native
+Google Places Autocomplete for React Native. This library uses the native Google Places SDK for iOS and Android.
 
 ## Preview
 
@@ -26,7 +26,7 @@ No further steps are needed on Android
 
 ## Usage
 
-```js
+```ts
 import { GooglePlacesAutocomplete } from "expo-google-places-autocomplete";
 
 // ...
@@ -48,7 +48,61 @@ const onPlaceSelected = React.useCallback((place: PlaceDetails) => {
 </View>;
 ```
 
-## Styling
+## Build your own
+
+The library exposes three fucntions that you can use to build your own autocomplete component.
+
+Start by initializing the SDK with your API key.
+
+```ts
+import PlacesAutocomplete from "expo-google-places-autocomplete";
+
+// ...
+
+useEffect(() => {
+  PlacesAutocomplete.initPlaces(apiKey);
+}, [apiKey]);
+```
+
+To get a list of predictions based on a users input you can attach an onChangeText handler to your TextInput and pass in your `RequestConfig` object. You will be returned an array of `Place` objects with at most 6 results.
+
+```js
+  // ...
+  const [inputValue, setInputValue] = React.useState("");
+  const [results, setResults] = React.useState<Place[]>([]);
+
+  // ...
+  const onChangeText = React.useCallback(
+    async (text: string) => {
+      try {
+        let result = await PlacesAutocomplete.findPlaces(text, requestConfig);
+        setResults(result.places);
+        setInputValue(text);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    [requestConfig],
+  );
+```
+
+When an item is selected from your list of results you can get the `PlaceDetails` with the following
+
+```ts
+const onPlaceSelected = React.useCallback(
+  async (placeId: string) => {
+    try {
+      const details = await PlacesAutocomplete.placeDetails(placeId);
+      console.log(details);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  [onPlaceSelected],
+);
+```
+
+## Styling the provided component
 
 | key                   | type      |
 | --------------------- | --------- |
@@ -61,4 +115,4 @@ const onPlaceSelected = React.useCallback((place: PlaceDetails) => {
 
 # Contributing
 
-Contributions are very welcome!
+Contributions are welcome!
