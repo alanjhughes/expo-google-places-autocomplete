@@ -24,6 +24,10 @@ Run `npx pod-install` after installing the npm package.
 
 No further steps are needed on Android
 
+## Get your api key
+
+Create a an API key [here](https://developers.google.com/maps/documentation/places/web-service/get-api-key/) and enable the "Places API". You must have billing enabled on the account.
+
 ## Usage
 
 ```ts
