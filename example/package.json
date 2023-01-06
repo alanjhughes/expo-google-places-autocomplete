@@ -8,20 +8,20 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~46.0.13",
-    "expo-splash-screen": "~0.16.2",
-    "expo-status-bar": "~1.4.0",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
-    "react-native": "0.69.6",
+    "expo": "~47.0.9",
+    "expo-splash-screen": "~0.17.5",
+    "expo-status-bar": "~1.4.2",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-native": "0.70.5",
     "react-native-dotenv": "^3.3.1",
     "react-native-web": "~0.18.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@types/react": "~18.0.14",
-    "@types/react-native": "~0.69.1",
-    "typescript": "~4.3.5"
+    "@babel/core": "^7.19.3",
+    "@types/react": "~18.0.24",
+    "@types/react-native": "~0.70.6",
+    "typescript": "^4.6.3"
   },
   "private": true,
   "expo": {
