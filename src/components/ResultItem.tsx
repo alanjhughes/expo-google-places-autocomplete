@@ -2,13 +2,13 @@ import * as React from "react";
 import { Pressable, Text, StyleSheet, ViewStyle } from "react-native";
 import type { Place } from "../types";
 
-interface ResultItemProps {
+interface PredictionProps {
   place: Place;
   onSelectPlace: () => void;
   style?: ViewStyle;
 }
 
-export function ResultItem({ place, onSelectPlace, style }: ResultItemProps) {
+export function Prediction({ place, onSelectPlace, style }: PredictionProps) {
   return (
     <Pressable
       style={{ ...defaultStyles.container, ...style }}

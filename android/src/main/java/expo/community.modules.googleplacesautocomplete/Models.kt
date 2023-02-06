@@ -1,51 +1,44 @@
 package expo.community.modules.googleplacesautocomplete
 
-import android.os.Bundle
-import com.google.android.libraries.places.api.model.AddressComponents
+import expo.modules.kotlin.records.Field
+import expo.modules.kotlin.records.Record
 
 data class PlaceDetails(
+    @Field
     val primaryText: String,
+    @Field
     val secondaryText: String,
+    @Field
     val fullText: String,
+    @Field
     val placeId: String,
+    @Field
     val distance: Int?,
+    @Field
     val types: List<String>
-) {
-    fun toBundle() = Bundle().apply {
-        putString("primaryText", primaryText)
-        putString("secondaryText", secondaryText)
-        putString("fullText", fullText)
-        putString("placeId", placeId)
-        putInt("distance", distance ?: -1)
-        putStringArray("types", types.toTypedArray())
-    }
-}
+): Record
+
+data class PredictionResult(
+    @Field
+    val places: List<PlaceDetails>
+) : Record
 
 data class DiscoveredPlace(
+    @Field
     val name: String?,
+    @Field
     val placeId: String?,
+    @Field
     val coordinate: Coordinate,
+    @Field
     val formattedAddress: String?,
-    val addressComponents: AddressComponents?
-) {
-    fun toBundle() = Bundle().apply {
-        putString("name", name)
-        putString("placeId", placeId)
-        putBundle("coordinate", coordinate.toBundle())
-        putString("formattedAddress", formattedAddress)
-        putStringArray(
-            "addressComponents",
-            addressComponents?.asList()?.map { it.name }?.toTypedArray() ?: emptyArray()
-        )
-    }
-}
+    @Field
+    val addressComponents: List<String>?
+) : Record
 
 data class Coordinate(
+    @Field
     val latitude: Double,
+    @Field
     val longitude: Double
-) {
-    fun toBundle() = Bundle().apply {
-        putDouble("latitude", latitude)
-        putDouble("longitude", longitude)
-    }
-}
+) : Record

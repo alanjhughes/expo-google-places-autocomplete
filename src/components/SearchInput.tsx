@@ -15,11 +15,11 @@ export const SearchInput = React.forwardRef<TextInput, SearchInputProps>(
     return (
       <View style={[styles.container, inputContainerStyle]}>
         <TextInput
-          {...props}
           ref={ref}
           defaultValue={inputValue}
           onChangeText={onChangeText}
           style={[styles.textField, style]}
+          {...props}
         />
       </View>
     );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Platform } from "react-native";
 import {
   GooglePlacesAutocomplete,
@@ -6,19 +6,23 @@ import {
   PlaceDetails,
 } from "expo-google-places-autocomplete";
 import { API_KEY } from "@env";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
+  const [place, setPlace] = useState<PlaceDetails | null>(null);
   const onSearchError = React.useCallback((error: PlacesError) => {
     console.log(error);
   }, []);
 
   const onPlaceSelected = React.useCallback((place: PlaceDetails) => {
+    setPlace(place);
     console.log(place);
   }, []);
 
   return (
     <View style={styles.screen}>
-      <View style={{ marginTop: Platform.OS === "ios" ? 44 : 0 }}>
+      <StatusBar style="dark" />
+      <View style={{ marginTop: 44 }}>
         <Text style={styles.title}>Google Places Autocomplete</Text>
         <GooglePlacesAutocomplete
           apiKey={API_KEY}
@@ -27,6 +31,7 @@ export default function App() {
           onPlaceSelected={onPlaceSelected}
           onSearchError={onSearchError}
         />
+        <Text>{place ? JSON.stringify(place) : ""}</Text>
       </View>
     </View>
   );

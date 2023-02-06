@@ -9,11 +9,13 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import expo.modules.kotlin.Promise
-import expo.modules.kotlin.functions.Coroutine
+import expo.modules.kotlin.exception.Exceptions
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
 class ExpoGooglePlacesAutocompleteModule : Module() {
+    private val context: Context
+        get() = appContext.reactContext ?: throw Exceptions.ReactContextLost()
     private lateinit var placesClient: PlacesClient
     private val token = AutocompleteSessionToken.newInstance()
     private val request =
@@ -37,26 +39,20 @@ class ExpoGooglePlacesAutocompleteModule : Module() {
         }
     }
 
-    val context: Context
-        get() = requireNotNull(appContext.reactContext) { "React Application Context is null" }
-
     private fun findPlaces(query: String, config: RequestConfig?, promise: Promise) {
         request.query = query
         request.countries = config?.countries ?: emptyList()
 
         placesClient.findAutocompletePredictions(request.build())
             .addOnSuccessListener { response ->
-                val bundle = Bundle()
                 val places =
-                    response.autocompletePredictions.map { mapFromPrediction(it) }.toTypedArray()
-                bundle.putParcelableArray("places", places)
-                promise.resolve(bundle)
+                    response.autocompletePredictions.map { mapFromPrediction(it) }
+                val result = PredictionResult(places = places)
+                promise.resolve(result)
             }
             .addOnFailureListener {
                 promise.reject(
-                    code = "Failed to fetch places",
-                    message = it.message,
-                    cause = it.cause
+                    FailedToFetchPlace(it.message)
                 )
             }
     }
@@ -79,9 +75,7 @@ class ExpoGooglePlacesAutocompleteModule : Module() {
             }
             .addOnFailureListener {
                 promise.reject(
-                    code = "Failed to fetch place details",
-                    message = it.message,
-                    cause = it.cause
+                    FailedToFetchDetails(it.message)
                 )
             }
     }

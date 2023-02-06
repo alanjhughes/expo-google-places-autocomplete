@@ -9,8 +9,8 @@ internal fun mapFromPlace(place: Place) = DiscoveredPlace(
     placeId = place.id,
     coordinate = mapFromCoordinate(place.latLng),
     formattedAddress = place.address,
-    addressComponents = place.addressComponents
-).toBundle()
+    addressComponents = place.addressComponents?.asList()?.map { it.name } ?: emptyList()
+)
 
 internal fun mapFromCoordinate(coordinate: LatLng?) = Coordinate(
     latitude = coordinate?.latitude ?: 0.0,
@@ -24,7 +24,7 @@ internal fun mapFromPrediction(prediction: AutocompletePrediction) = PlaceDetail
     placeId = prediction.placeId,
     distance = prediction.distanceMeters,
     types = prediction.placeTypes.map { it.name }
-).toBundle()
+)
 
 
 

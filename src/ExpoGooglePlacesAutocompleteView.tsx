@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
-import { SearchInput, ResultItem, ListFooter } from "./components";
+import { SearchInput, Prediction, ListFooter } from "./components";
 import PlacesAutocomplete from "./ExpoGooglePlacesAutocompleteModule";
 import { Place, PlacesError } from "./types";
 import { GooglePlacesAutocompleteProps } from "./types/GooglePlacesAutocompleteProps";
@@ -20,7 +20,7 @@ export default function ExpoGooglePlacesAutocompleteView({
   listFooterStyle,
 }: GooglePlacesAutocompleteProps) {
   const [inputValue, setInputValue] = React.useState("");
-  const [results, setResults] = React.useState<Place[]>([]);
+  const [predictions, setPredictions] = React.useState<Place[]>([]);
 
   React.useEffect(() => {
     PlacesAutocomplete.initPlaces(apiKey);
@@ -31,7 +31,7 @@ export default function ExpoGooglePlacesAutocompleteView({
       try {
         const details = await PlacesAutocomplete.placeDetails(placeId);
         setInputValue(fullText);
-        setResults([]);
+        setPredictions([]);
         onPlaceSelected(details);
       } catch (e) {
         const error = e as PlacesError;
@@ -45,7 +45,7 @@ export default function ExpoGooglePlacesAutocompleteView({
     async (text: string) => {
       try {
         let result = await PlacesAutocomplete.findPlaces(text, requestConfig);
-        setResults(result.places);
+        setPredictions(result.places);
         setInputValue(text);
       } catch (e) {
         const error = e as PlacesError;
@@ -66,14 +66,16 @@ export default function ExpoGooglePlacesAutocompleteView({
         placeholder={placeholder || "Search for your address..."}
         clearButtonMode="while-editing"
       />
-      {results.length > 0 ? (
+      {predictions.length > 0 ? (
         <View style={resultsContainerStyle}>
-          {results.map(place => (
-            <ResultItem
-              key={place.placeId}
-              place={place}
+          {predictions.map(prediction => (
+            <Prediction
+              key={prediction.placeId}
+              place={prediction}
               style={resultItemStyle}
-              onSelectPlace={() => onSelectPlace(place.placeId, place.fullText)}
+              onSelectPlace={() =>
+                onSelectPlace(prediction.placeId, prediction.fullText)
+              }
             />
           ))}
           <ListFooter style={listFooterStyle} />
