@@ -6,11 +6,11 @@ interface ExpoGooglePlacesAutocompleteModule {
   initPlaces: (apikey: string) => void;
   findPlaces: (
     query: string,
-    config?: RequestConfig,
+    config?: RequestConfig
   ) => Promise<{ places: Place[] }>;
   placeDetails: (placeId: String) => Promise<PlaceDetails>;
 }
 
 export default requireNativeModule(
-  "ExpoGooglePlacesAutocomplete",
+  "ExpoGooglePlacesAutocomplete"
 ) as ExpoGooglePlacesAutocompleteModule;
