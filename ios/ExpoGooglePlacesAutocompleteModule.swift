@@ -16,8 +16,8 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
     Name("ExpoGooglePlacesAutocomplete")
 
     OnCreate {
-      self.fetcher = GMSAutocompleteFetcher(filter: self.filter)
-      self.fetcher.provide(self.token)
+      fetcher = GMSAutocompleteFetcher(filter: filter)
+      fetcher.provide(token)
     }
 
     Function("initPlaces") { (apiKey: String) in
@@ -25,23 +25,21 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
     }
 
     AsyncFunction("findPlaces") { (query: String, config: RequestConfig?, promise: Promise) in
-      self.findPlaces(from: query, config: config, promise: promise)
+      findPlaces(from: query, config: config, promise: promise)
     }.runOnQueue(.main)
 
     AsyncFunction("placeDetails") { (id: String, promise: Promise) in
-      self.placeDetails(id: id, promise: promise)
-    }.runOnQueue(.main)
+      placeDetails(id: id, promise: promise)
+    }
   }
 
   private func findPlaces(from query: String, config: RequestConfig?, promise: Promise) {
     let placesDelegate = PlacesDelegate(resultHandler: self)
     fetcher.delegate = placesDelegate
 
-    self.currentContext = PlacesAutocompleteContext(promise: promise, placesDelegate: placesDelegate)
-
+    currentContext = PlacesAutocompleteContext(promise: promise, placesDelegate: placesDelegate)
     filter.countries = config?.countries ?? []
-
-    self.fetcher.sourceTextHasChanged(query)
+    fetcher.sourceTextHasChanged(query)
   }
 
   private func placeDetails(id: String, promise: Promise) {
@@ -53,17 +51,18 @@ public class ExpoGooglePlacesAutocompleteModule: Module, PlacesResultHandler {
     )
 
     GMSPlacesClient.shared().fetchPlace(fromPlaceID: id, placeFields: fields, sessionToken: nil) { place, error in
-      if let error = error {
+      if let error {
         promise.reject(error)
         return
       }
 
-      if let place = place {
+      if let place {
         let result = Mappers.mapFromPlace(place: place)
         promise.resolve(result)
+      } else {
+        promise.resolve()
       }
     }
-
   }
 
   func didAutocomplete(with predictions: [GMSAutocompletePrediction]) {

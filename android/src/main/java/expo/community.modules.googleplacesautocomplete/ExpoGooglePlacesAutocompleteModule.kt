@@ -1,7 +1,6 @@
 package expo.community.modules.googleplacesautocomplete
 
 import android.content.Context
-import android.os.Bundle
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.Place

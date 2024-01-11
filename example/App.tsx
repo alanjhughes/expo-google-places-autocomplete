@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Platform } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import {
   GooglePlacesAutocomplete,
   PlacesError,
   PlaceDetails,
 } from "expo-google-places-autocomplete";
-import { API_KEY } from "@env";
 import { StatusBar } from "expo-status-bar";
+
+const API_KEY = process.env.EXPO_PUBLIC_API_KEY ?? "";
 
 export default function App() {
   const [place, setPlace] = useState<PlaceDetails | null>(null);
@@ -31,7 +32,7 @@ export default function App() {
           onPlaceSelected={onPlaceSelected}
           onSearchError={onSearchError}
         />
-        <Text>{place ? JSON.stringify(place) : ""}</Text>
+        <Text>{place ? JSON.stringify(place, null, 2) : ""}</Text>
       </View>
     </View>
   );

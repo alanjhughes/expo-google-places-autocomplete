@@ -1,6 +1,6 @@
 {
   "name": "expo-google-places-autocomplete",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Google Places Autocomplete for React Native",
   "main": "build/ExpoGooglePlacesAutocomplete.js",
   "types": "build/ExpoGooglePlacesAutocomplete.d.ts",
@@ -32,11 +32,11 @@
   "homepage": "https://github.com/alanjhughes/expo-google-places-autocomplete#readme",
   "dependencies": {},
   "devDependencies": {
-    "@types/react": "^18.0.25",
-    "@types/react-native": "^0.70.6",
+    "@types/react": "~18.2.45",
+    "react-native": "0.71.3",
     "copyfiles": "^2.4.1",
-    "expo-module-scripts": "^3.0.7",
-    "expo-modules-core": "^1.2.3"
+    "expo-module-scripts": "^3.1.0",
+    "expo-modules-core": "^1.5.12"
   },
   "peerDependencies": {
     "expo": "*",

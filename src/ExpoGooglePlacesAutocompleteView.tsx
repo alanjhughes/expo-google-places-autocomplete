@@ -38,7 +38,7 @@ export default function ExpoGooglePlacesAutocompleteView({
         onSearchError?.(error);
       }
     },
-    [onPlaceSelected, onSearchError],
+    [onPlaceSelected, onSearchError]
   );
 
   const onChangeText = React.useCallback(
@@ -52,7 +52,7 @@ export default function ExpoGooglePlacesAutocompleteView({
         onSearchError?.(error);
       }
     },
-    [requestConfig],
+    [requestConfig]
   );
 
   return (

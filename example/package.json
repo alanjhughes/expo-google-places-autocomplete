@@ -1,6 +1,7 @@
 {
   "name": "expo-google-places-autocomplete-example",
   "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
@@ -8,19 +9,17 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~48.0.4",
-    "expo-splash-screen": "~0.18.1",
-    "expo-status-bar": "~1.4.4",
+    "expo": "^49.0.21",
+    "expo-splash-screen": "~0.20.5",
+    "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.71.3",
-    "react-native-dotenv": "^3.3.1",
-    "react-native-web": "~0.18.10"
+    "react-native": "0.72.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.3",
-    "@types/react": "~18.0.27",
-    "typescript": "^4.6.3"
+    "@babel/core": "^7.20.0",
+    "@types/react": "~18.2.14",
+    "typescript": "^5.1.3"
   },
   "private": true,
   "expo": {
