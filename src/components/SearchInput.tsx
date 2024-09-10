@@ -10,7 +10,7 @@ interface SearchInputProps extends TextInputProps {
 export const SearchInput = React.forwardRef<TextInput, SearchInputProps>(
   function Input(
     { inputValue, onChangeText, inputContainerStyle, style, ...props },
-    ref,
+    ref
   ) {
     return (
       <View style={[styles.container, inputContainerStyle]}>
@@ -23,7 +23,7 @@ export const SearchInput = React.forwardRef<TextInput, SearchInputProps>(
         />
       </View>
     );
-  },
+  }
 );
 
 const styles = StyleSheet.create({
