@@ -1,14 +1,14 @@
-import * as React from "react";
 import { StyleSheet, View, Image, ViewProps } from "react-native";
-
-const logo = require("../assets/powered_by_google_on_white.png");
 
 interface ListFooterProps extends ViewProps {}
 
 export function ListFooter({ style }: ListFooterProps) {
   return (
     <View style={[styles.contianer, style]}>
-      <Image source={logo} style={styles.logo} />
+      <Image
+        source={require("../assets/powered_by_google_on_white.png")}
+        style={styles.logo}
+      />
     </View>
   );
 }
