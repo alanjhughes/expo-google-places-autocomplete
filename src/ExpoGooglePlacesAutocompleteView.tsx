@@ -17,6 +17,8 @@ export default function ExpoGooglePlacesAutocompleteView({
   inputContainerStyle,
   resultsContainerStyle,
   resultItemStyle,
+  primaryTextStyle,
+  secondaryTextStyle,
   listFooterStyle,
 }: GooglePlacesAutocompleteProps) {
   const [inputValue, setInputValue] = React.useState("");
@@ -73,6 +75,8 @@ export default function ExpoGooglePlacesAutocompleteView({
               key={prediction.placeId}
               place={prediction}
               style={resultItemStyle}
+              primaryTextStyle={primaryTextStyle}
+              secondaryTextStyle={secondaryTextStyle}
               onSelectPlace={() =>
                 onSelectPlace(prediction.placeId, prediction.fullText)
               }

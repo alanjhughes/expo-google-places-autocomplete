@@ -31,6 +31,7 @@ export default function App() {
           containerStyle={styles.containerStyle}
           onPlaceSelected={onPlaceSelected}
           onSearchError={onSearchError}
+          primaryTextStyle={{ color: "red" }}
         />
         <Text>{place ? JSON.stringify(place, null, 2) : ""}</Text>
       </View>

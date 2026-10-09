@@ -1,22 +1,28 @@
-import { Pressable, Text, StyleSheet, ViewStyle } from "react-native";
+import { Pressable, StyleSheet, Text, TextStyle, ViewStyle } from "react-native";
 import type { Place } from "../types";
 
 interface PredictionProps {
   place: Place;
   onSelectPlace: () => void;
   style?: ViewStyle;
+  primaryTextStyle?: TextStyle;
+  secondaryTextStyle?: TextStyle;
 }
 
-export function Prediction({ place, onSelectPlace, style }: PredictionProps) {
+export function Prediction({ place, onSelectPlace, style, primaryTextStyle, secondaryTextStyle }: PredictionProps) {
   return (
     <Pressable
       style={{ ...defaultStyles.container, ...style }}
       onPress={onSelectPlace}
     >
       {({ pressed }) => (
-        <Text style={[defaultStyles.primary, { opacity: pressed ? 0.5 : 1 }]}>
-          {place.primaryText}
-          <Text style={defaultStyles.secondary}>{place.secondaryText}</Text>
+        <Text style={{ opacity: pressed ? 0.5 : 1 }}>
+          <Text style={[defaultStyles.primary, primaryTextStyle]}>
+            {place.primaryText}{"\n"}
+          </Text>
+          <Text style={[defaultStyles.secondary, secondaryTextStyle]}>
+            {place.secondaryText}
+          </Text>
         </Text>
       )}
     </Pressable>

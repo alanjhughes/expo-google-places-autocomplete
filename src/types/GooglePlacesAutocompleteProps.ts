@@ -1,4 +1,4 @@
-import type { TextInput, ViewProps, ViewStyle } from "react-native";
+import type { TextInput, TextStyle, ViewProps, ViewStyle } from "react-native";
 import type { PlacesError } from "./Error";
 import type { PlaceDetails } from "./PlaceDetails";
 import type { RequestConfig } from "./RequestConfig";
@@ -59,6 +59,16 @@ export interface GooglePlacesAutocompleteProps extends ViewProps {
    * The style of individual result items
    */
   resultItemStyle?: ViewStyle;
+
+  /**
+   * The style of the primary text in result items
+   */
+  primaryTextStyle?: TextStyle;
+
+  /**
+   * The style of the secondary text in result items
+   */
+  secondaryTextStyle?: TextStyle;
 
   /**
    * The style of the list footer

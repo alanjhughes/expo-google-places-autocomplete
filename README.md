@@ -116,6 +116,8 @@ const onPlaceSelected = React.useCallback(
 | resultsContainerStyle | ViewStyle |
 | resultItemStyle       | ViewStyle |
 | listFooterStyle       | ViewStyle |
+| primaryTextStyle      | TextStyle |
+| secondaryTextStyle    | TextStyle |
 
 # Contributing
 
